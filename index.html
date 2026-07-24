@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Active Tax Filer — Income Tax Filing & Bookkeeping, Karachi</title>
+<meta name="description" content="FBR income tax return filing, NTN registration and bookkeeping services in Karachi. File before 30 September 2026 and stay on the Active Taxpayers List.">
+<style>
+  :root{
+    --navy:#0d2b45; --teal:#0e9488; --teal-light:#e6f6f4;
+    --gold:#b8860b; --gold-light:#fdf6e3; --red:#c0392b; --red-light:#fdecea;
+    --ink:#1f2d3d; --muted:#5a6b7c; --line:#e4e9ee; --bg:#f7f9fb;
+    --nav-grad:linear-gradient(135deg,#0d2b45 0%,#0e9488 100%);
+    --nav-grad-soft:linear-gradient(135deg,#ffffff 0%,#f2f8f7 100%);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:#fff;color:var(--ink);}
+  a{text-decoration:none;}
+
+  .layout{display:flex;min-height:100vh;}
+  .sidebar{width:238px;flex-shrink:0;background:#fff;border-right:1px solid var(--line);
+    padding:24px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;}
+  .main{flex:1;background:var(--bg);min-width:0;}
+
+  .brand{padding:0 8px 20px;border-bottom:1px solid var(--line);margin-bottom:16px;}
+  .brand img{width:100%;border-radius:12px;display:block;}
+  .brand-logo{padding:4px 8px 0;}
+  .brand-logo .word{
+    font-size:23px;font-weight:900;line-height:1.08;letter-spacing:-.4px;
+    background:linear-gradient(120deg,var(--navy) 15%,var(--teal) 85%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .brand-logo .word .accent{color:var(--gold);-webkit-text-fill-color:var(--gold);}
+  .brand-logo .tag{
+    display:inline-block;margin-top:7px;font-size:10px;font-weight:800;letter-spacing:1.6px;
+    text-transform:uppercase;color:#fff;background:linear-gradient(135deg,var(--navy),var(--teal));
+    padding:4px 10px;border-radius:20px;
+  }
+
+  .menu-label{font-size:10.5px;font-weight:800;letter-spacing:1.4px;color:#9fb0bf;text-transform:uppercase;padding:0 10px;margin-bottom:8px;}
+
+  .nav-btn{display:flex;align-items:center;gap:11px;width:100%;padding:10px 12px;margin-bottom:4px;
+    border:none;border-radius:12px;color:#fff;font-size:13.5px;font-weight:700;
+    cursor:pointer;text-align:left;transition:all .18s cubic-bezier(.4,0,.2,1);font-family:inherit;
+    position:relative;overflow:hidden;box-shadow:0 2px 8px rgba(13,43,69,.16);}
+  .nav-btn:hover{filter:brightness(1.08);transform:translateY(-1px);}
+  .nav-btn.active{background:linear-gradient(135deg,#11395c 0%,#14b8a6 100%);
+    box-shadow:0 0 0 3px rgba(255,255,255,.9), 0 10px 22px rgba(13,43,69,.38);
+    transform:translateY(-1px) scale(1.02);}
+  .nav-btn .ic-chip{width:30px;height:30px;border-radius:9px;background:rgba(255,255,255,.26);display:flex;align-items:center;
+    justify-content:center;flex-shrink:0;color:#fff;transition:all .18s;}
+  .nav-btn .ic-chip svg{width:16px;height:16px;}
+  .nav-btn:hover .ic-chip{transform:scale(1.08);}
+
+  .nav-row .nav-btn{background:linear-gradient(135deg,#0d2b45 0%,#0e9488 100%);}
+
+  .topbar{position:sticky;top:0;z-index:15;background:#fff;border-bottom:1px solid var(--line);
+    padding:16px 36px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .topbar h2{font-size:19px;color:var(--navy);font-weight:800;letter-spacing:-.2px;}
+  .topbar h2 span{
+    font-weight:900;
+    background:linear-gradient(120deg,var(--navy) 10%,var(--teal) 65%,var(--gold) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .topbar .same-day{background:var(--teal-light);color:var(--teal);font-size:10.5px;font-weight:800;
+    padding:5px 12px;border-radius:20px;letter-spacing:.6px;text-transform:uppercase;}
+  @media(max-width:720px){.topbar{padding:12px 16px;}.topbar h2{font-size:16px;}}
+
+  .side-cta{margin-top:auto;background:var(--navy);color:#fff;border-radius:12px;padding:16px 14px;font-size:12.5px;line-height:1.5;}
+  .side-cta strong{display:block;font-size:13.5px;margin-bottom:4px;}
+  .side-cta a{display:block;text-align:center;background:#25d366;color:#fff;font-weight:700;font-size:13px;
+    padding:9px;border-radius:8px;margin-top:10px;}
+
+  .page{display:none;padding:32px 36px 60px;max-width:1000px;}
+  .page.active{display:block;}
+  .crumb{font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;font-weight:700;margin-bottom:8px;}
+  h1{font-size:30px;color:var(--navy);line-height:1.25;margin-bottom:10px;}
+  h1 em{font-style:normal;color:var(--teal);}
+  h2{font-size:20px;color:var(--navy);margin:34px 0 14px;}
+  .lead{font-size:15.5px;color:var(--muted);line-height:1.6;max-width:640px;}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;}
+  .grid{display:grid;gap:14px;}
+  .grid.c3{grid-template-columns:repeat(3,1fr);}
+  .grid.c2{grid-template-columns:repeat(2,1fr);}
+  .grid.c1{grid-template-columns:minmax(0,340px);}
+  @media(max-width:860px){.grid.c3,.grid.c2{grid-template-columns:1fr;}}
+
+  .hero{background:linear-gradient(120deg,#fff 60%,var(--teal-light));border:1px solid var(--line);
+    border-radius:16px;padding:34px 30px;margin-bottom:26px;}
+  .hero .badge{display:inline-block;background:var(--navy);color:#fff;font-size:11px;font-weight:800;
+    letter-spacing:1.2px;padding:6px 14px;border-radius:20px;margin-bottom:14px;}
+  .hero .btns{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;}
+  .btn{display:inline-block;padding:12px 22px;border-radius:10px;font-weight:700;font-size:14px;
+    text-decoration:none;cursor:pointer;border:none;font-family:inherit;}
+  .btn.primary{background:var(--teal);color:#fff;}
+  .btn.outline{background:#fff;color:var(--navy);border:2px solid var(--navy);}
+
+  .svc h3{font-size:15.5px;color:var(--navy);margin-bottom:6px;}
+  .svc p{font-size:13px;color:var(--muted);line-height:1.5;}
+  .svc .who{display:inline-block;margin-top:10px;font-size:11px;font-weight:700;color:var(--teal);
+    background:var(--teal-light);padding:4px 10px;border-radius:14px;}
+
+  .pen{border-left:4px solid var(--red);background:var(--red-light);}
+  .pen h3{color:var(--red);font-size:14.5px;margin-bottom:5px;}
+  .pen p{font-size:13px;color:#6b3a34;line-height:1.5;}
+  .pen .amt{font-size:20px;font-weight:800;color:var(--red);display:block;margin-bottom:4px;}
+
+  .calc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;}
+  @media(max-width:860px){.calc-wrap{grid-template-columns:1fr;}}
+  label{font-size:13px;font-weight:700;color:var(--navy);display:block;margin-bottom:6px;}
+  select,input[type=number]{width:100%;padding:12px;border:1.5px solid var(--line);border-radius:10px;
+    font-size:15px;margin-bottom:16px;background:#fff;color:var(--ink);font-family:inherit;}
+  select:focus,input:focus{outline:none;border-color:var(--teal);}
+  .result{background:var(--navy);color:#fff;border-radius:14px;padding:22px;}
+  .result .r-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:14px;}
+  .result .r-row:last-child{border:none;}
+  .result .big{font-size:24px;font-weight:800;color:#ffd166;}
+  .slab-note{font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.5;}
+
+  .doc-list{list-style:none;}
+  .doc-list li{padding:9px 0 9px 26px;position:relative;font-size:13.5px;color:var(--ink);border-bottom:1px dashed var(--line);}
+  .doc-list li:last-child{border:none;}
+  .doc-list li::before{content:'✓';position:absolute;left:0;color:var(--teal);font-weight:800;}
+  .why .n{font-size:22px;font-weight:800;color:var(--teal);}
+  .why h3{font-size:15px;color:var(--navy);margin:6px 0 5px;}
+  .why p{font-size:13px;color:var(--muted);line-height:1.5;}
+
+  .contact-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);}
+  .contact-row:last-child{border:none;}
+  .contact-row .ic{width:42px;height:42px;border-radius:10px;background:var(--teal-light);color:var(--teal);
+    display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+  .contact-row .t{font-size:14px;}
+  .contact-row .t small{display:block;color:var(--muted);font-size:12px;}
+  .contact-row a{color:var(--navy);font-weight:700;}
+
+  .footer-note{font-size:11px;color:var(--muted);margin-top:40px;border-top:1px solid var(--line);padding-top:14px;line-height:1.6;}
+
+  .compare-card{border-top:4px solid var(--teal);}
+  .compare-card h3{font-size:14px;color:var(--navy);margin-bottom:8px;}
+  .compare-card .ctax{font-size:22px;font-weight:800;margin:6px 0 4px;}
+  .compare-card .crate,.compare-card .cnet{font-size:12px;color:var(--muted);}
+  .compare-card .cnet strong{color:var(--ink);}
+  .save-box{margin-top:18px;background:var(--red-light);border-color:#f3d4d0;}
+  .save-box strong{color:var(--red);font-size:14px;}
+  .save-box p{font-size:12.5px;color:#6b3a34;margin-top:6px;}
+
+  .contact-fab{position:fixed;bottom:20px;right:20px;z-index:99;display:flex;flex-direction:column;align-items:flex-end;gap:10px;}
+  .fab-option{display:flex;align-items:center;gap:10px;opacity:0;transform:translateY(10px) scale(.9);
+    pointer-events:none;transition:all .2s ease;}
+  .contact-fab.open .fab-option{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+  .contact-fab.open .fab-option:nth-child(1){transition-delay:.05s;}
+  .contact-fab.open .fab-option:nth-child(2){transition-delay:.1s;}
+  .contact-fab.open .fab-option:nth-child(3){transition-delay:.15s;}
+  .fab-label{background:#fff;color:var(--navy);font-size:12.5px;font-weight:700;padding:7px 12px;
+    border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.15);white-space:nowrap;}
+  .fab-btn{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:20px;color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.18);flex-shrink:0;}
+  .fab-btn.wa{background:#25d366;}
+  .fab-btn.call{background:var(--navy);}
+  .fab-btn.mail{background:var(--gold);}
+  .fab-main{width:58px;height:58px;border-radius:50%;background:#25d366;color:#fff;border:none;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    box-shadow:0 6px 18px rgba(37,211,102,.4);transition:all .2s;}
+  .fab-icon-close{display:none;font-size:28px;line-height:1;font-weight:400;}
+  .contact-fab.open .fab-main{background:var(--red);box-shadow:0 6px 18px rgba(192,57,43,.35);}
+  .contact-fab.open .fab-icon-wa{display:none;}
+  .contact-fab.open .fab-icon-close{display:inline;}
+
+  @media(max-width:720px){
+    .layout{flex-direction:column;}
+    .sidebar{width:100%;height:auto;position:static;flex-direction:column;padding:14px 14px 12px;}
+    .brand{padding:0 0 12px;margin-bottom:12px;}
+    .menu-label{display:none;}
+    .nav-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;overflow-x:visible;}
+    .nav-btn{flex-direction:column;align-items:center;justify-content:center;gap:7px;
+      text-align:center;white-space:normal;width:auto;margin:0;min-height:78px;
+      padding:12px 6px 10px;border:none;border-radius:16px;
+      font-size:11px;line-height:1.25;font-weight:800;color:#fff;
+      box-shadow:0 3px 10px rgba(13,43,69,.18);}
+    .nav-btn .ic-chip{width:36px;height:36px;background:rgba(255,255,255,.28);box-shadow:none;color:#fff;}
+    .nav-btn .ic-chip svg{width:18px;height:18px;}
+    .nav-btn.active{box-shadow:0 0 0 3px rgba(255,255,255,.95), 0 10px 22px rgba(13,43,69,.4);
+      transform:scale(1.03);}
+    .side-cta{display:none;}
+    .page{padding:20px 16px 50px;}
+    h1{font-size:24px;}
+  }
+
+  @media(max-width:420px){
+    .nav-row{grid-template-columns:repeat(2,1fr);}
+    .nav-btn{font-size:11.5px;min-height:70px;}
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="logo.png" alt="Active Tax Filer — Same Day" onerror="this.style.display='none'; document.getElementById('brandFallback').style.display='block';">
+      <div class="brand-logo" id="brandFallback" style="display:none;">
+        <div class="word">ACTIVE<br>TAX <span class="accent">FILER</span></div>
+        <span class="tag">⚡ Same-Day ATL</span>
+      </div>
+    </div>
+    <div class="menu-label">Menu</div>
+    <div class="nav-row">
+      <button class="nav-btn active" onclick="go('home',this)"><span class="ic-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg></span> Home</button>
+      <button class="nav-btn" onclick="go('calc',this)"><span class="ic-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10.01"/><line x1="12" y1="10" x2="12" y2="10.01"/><line x1="16" y1="10" x2="16" y2="10.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="8" y1="18" x2="16" y2="18"/></svg></span> Tax Calculator</button>
+      <button class="nav-btn" onclick="go('compare',this)"><span class="ic-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"/><path d="M5 7h14"/><path d="M5 7l-3 7a3.5 3.5 0 0 0 7 0z"/><path d="M19 7l-3 7a3.5 3.5 0 0 0 7 0z"/></svg></span> Filer vs Non-Filer</button>
+      <button class="nav-btn" onclick="go('docs',this)"><span class="ic-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></span> Documents & Why Us</button>
+      <button class="nav-btn" onclick="go('contact',this)"><span class="ic-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span> Contact Us</button>
+      <button class="nav-btn" onclick="go('apps',this)"><span class="ic-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span> Business Apps</button>
+    </div>
+    <div class="side-cta">
+      <strong>Deadline: 30 Sep 2026</strong>
+      File your Tax Year 2026 return now and stay on the ATL.
+      <a href="https://wa.me/923002212473?text=I%20want%20to%20file%20my%20tax%20return.%20Visit%3A%20https%3A%2F%2Ffahadrehman1983-spec.github.io%2FActive-filer%2F" target="_blank">WhatsApp Us</a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <h2>Become <span>Active Tax Filer</span> (Same Day)</h2>
+      <span class="same-day">⚡ Same-Day ATL Status</span>
+    </div>
+
+    <!-- ============ PAGE: HOME ============ -->
+    <section class="page active" id="home">
+      <div class="hero">
+        <div class="badge">FBR REGISTERED · TAX YEAR 2026</div>
+        <h1>File Your Income Tax Return <em>Before It Costs You.</em></h1>
+        <p class="lead">Active Tax Filer handles your complete FBR return — from NTN registration to IRIS submission — so you stay on the Active Taxpayers List and avoid non-filer penalties.</p>
+        <div class="btns">
+          <button class="btn primary" onclick="go('calc',document.querySelectorAll('.nav-btn')[1])">Calculate My Tax</button>
+          <button class="btn outline" onclick="go('contact',document.querySelectorAll('.nav-btn')[4])">Get Started</button>
+        </div>
+      </div>
+
+      <h2>Our Services — And Who They're For</h2>
+      <div class="grid c3">
+        <div class="card svc">
+          <h3>Salaried Return Filing</h3>
+          <p>Annual return + wealth statement filed on IRIS, with employer withholding reconciled and refunds claimed where due.</p>
+          <span class="who">For salaried employees</span>
+        </div>
+        <div class="card svc">
+          <h3>Business & AOP Returns</h3>
+          <p>Returns for sole proprietors, shopkeepers, partnerships and AOPs — with proper income computation and expense claims.</p>
+          <span class="who">For business owners & AOPs</span>
+        </div>
+        <div class="card svc">
+          <h3>Freelancer & IT Income</h3>
+          <p>Correct treatment of foreign remittances and export of services income so you don't overpay a rupee.</p>
+          <span class="who">For freelancers & remote workers</span>
+        </div>
+        <div class="card svc">
+          <h3>NTN Registration</h3>
+          <p>New NTN registration on IRIS in as little as one working day — the first step to becoming a filer.</p>
+          <span class="who">For first-time filers</span>
+        </div>
+        <div class="card svc">
+          <h3>Property & Investors</h3>
+          <p>Rental income, capital gains and property withholding (236C/236K) handled correctly at filer rates.</p>
+          <span class="who">For landlords & investors</span>
+        </div>
+        <div class="card svc">
+          <h3>Bookkeeping & Sales Tax</h3>
+          <p>Monthly bookkeeping, ledgers and sales tax return support so your records are always FBR-ready.</p>
+          <span class="who">For SMEs & shops</span>
+        </div>
+        <div class="card svc">
+          <h3>Non-Resident Return Filing</h3>
+          <p>Returns covering foreign remittances, assets held abroad and any Pakistan-source income — filed correctly under NRP rules.</p>
+          <span class="who">For overseas Pakistanis</span>
+        </div>
+      </div>
+
+      <h2>What Happens If You Don't File On Time</h2>
+      <div class="grid c2">
+        <div class="card pen">
+          <h3>ATL Surcharge</h3>
+          <span class="amt">Rs. 25,000</span>
+          <p>Miss the deadline and you must pay a surcharge just to get back on the Active Taxpayers List — up from Rs. 1,000 previously.</p>
+        </div>
+        <div class="card pen">
+          <h3>Late Filing Penalty (Sec. 182)</h3>
+          <span class="amt">0.1% per day</span>
+          <p>Daily penalty on tax payable for every day of delay, subject to minimum penalty amounts — it adds up fast.</p>
+        </div>
+        <div class="card pen">
+          <h3>Double Withholding Tax</h3>
+          <span class="amt">Up to 2x rates</span>
+          <p>Non-filers pay far higher withholding on property transactions, vehicle registration, banking profit and dividends.</p>
+        </div>
+        <div class="card pen">
+          <h3>Cash Withdrawal Tax</h3>
+          <span class="amt">0.8% advance tax</span>
+          <p>Non-filers are charged advance tax on daily bank cash withdrawals above Rs. 75,000 — filers pay none.</p>
+        </div>
+      </div>
+
+      <div class="footer-note">© 2026 Active Tax Filer, Karachi. Figures shown are indicative and subject to the Income Tax Ordinance 2001, Finance Act amendments and FBR notifications. This website is for information only and is not a substitute for professional advice.</div>
+    </section>
+
+    <!-- ============ PAGE: CALCULATOR ============ -->
+    <section class="page" id="calc">
+      <div class="crumb">Tools</div>
+      <h1>Salary Tax Calculator — <em>Multi-Year</em></h1>
+      <p class="lead">Estimate your annual salary income tax for Tax Year 2024, 2025 or 2026 using the exact FBR slabs enacted for each year.</p>
+
+      <div class="calc-wrap">
+        <div class="card">
+          <label for="tyear">Tax year</label>
+          <select id="tyear">
+            <option value="2024">Tax Year 2024 (Jul 2023 – Jun 2024)</option>
+            <option value="2025">Tax Year 2025 (Jul 2024 – Jun 2025)</option>
+            <option value="2026" selected>Tax Year 2026 (Jul 2025 – Jun 2026)</option>
+          </select>
+          <label for="mode">Salary input type</label>
+          <select id="mode">
+            <option value="m">Monthly gross salary</option>
+            <option value="a">Annual gross salary</option>
+          </select>
+          <label for="amt">Amount (Rs.)</label>
+          <input type="number" id="amt" placeholder="e.g. 150000" min="0">
+          <div class="slab-note" id="slabNote"></div>
+        </div>
+        <div class="result">
+          <div class="r-row"><span>Annual taxable income</span><strong id="rIncome">—</strong></div>
+          <div class="r-row"><span>Annual income tax</span><strong id="rTax" class="big">Rs. 0</strong></div>
+          <div class="r-row"><span>Surcharge (if applicable)</span><strong id="rSur">Rs. 0</strong></div>
+          <div class="r-row"><span>Monthly tax deduction</span><strong id="rMonthly">Rs. 0</strong></div>
+          <div class="r-row"><span>Monthly take-home</span><strong id="rTake">—</strong></div>
+          <div class="r-row"><span>Effective tax rate</span><strong id="rEff">0%</strong></div>
+        </div>
+      </div>
+
+      <h2>Want an exact computation?</h2>
+      <div class="card">
+        <p style="font-size:14px;color:var(--muted);line-height:1.6;">This calculator gives an estimate. Your final liability depends on exempt allowances, teacher/researcher rebates, Zakat, pension contributions and adjustable withholding already deducted. Send us your salary slip on WhatsApp and we'll compute it exactly — free.</p>
+        <div style="margin-top:14px;"><a class="btn primary" id="waLink" href="https://wa.me/923002212473?text=Please%20compute%20my%20exact%20salary%20tax.%20Visit%3A%20https%3A%2F%2Ffahadrehman1983-spec.github.io%2FActive-filer%2F" target="_blank">Send Salary Slip on WhatsApp</a></div>
+      </div>
+    </section>
+
+    <!-- ============ PAGE: FILER TAX CALCULATOR ============ -->
+    <section class="page" id="compare">
+      <div class="crumb">Compare</div>
+      <h1>Active Filer Tax <em>Calculator</em></h1>
+      <p class="lead">Property transfer rates show the Active Filer rate only. Cash withdrawal and bank profit / profit on debt show the full Filer vs Late Filer vs Non-Filer comparison — rates for Tax Year 2027 (Finance Act 2026, effective 1 July 2026).</p>
+
+      <div class="card" id="propNotice" style="margin-top:20px;background:var(--gold-light);border-color:#efe2bd;display:none;">
+        <strong style="color:var(--gold);font-size:14px;">⏳ Late Filer / Non-Filer comparison — Not yet published for property</strong>
+        <p style="font-size:12.5px;color:#6b5a2e;margin-top:6px;line-height:1.55;">We're holding back the late-filer and non-filer figures for property transactions until final value-banding is confirmed. Message us on WhatsApp for an accurate comparison on your specific transaction.</p>
+      </div>
+
+      <div class="card" style="margin-top:16px;">
+        <label for="ctype">Transaction type</label>
+        <select id="ctype">
+          <option value="sale">Property Sale — Section 236C (Seller)</option>
+          <option value="purchase">Property Purchase — Section 236K (Buyer)</option>
+          <option value="bankprofit">Bank Profit / Profit on Debt — Section 151</option>
+          <option value="cash">Cash Withdrawal — Section 231AB (per day)</option>
+        </select>
+        <label for="camt" id="camtLabel">Property value (Rs.)</label>
+        <input type="number" id="camt" placeholder="e.g. 6000000" min="0">
+        <div class="slab-note" id="cNote"></div>
+      </div>
+
+      <div class="grid c3" id="cardGrid" style="margin-top:18px;">
+        <div class="card compare-card" style="border-top-color:#2ec4b6;">
+          <h3>✅ Filer (ATL)</h3>
+          <div class="ctax" style="color:var(--teal);" id="cFilerTax">Rs. 0</div>
+          <div class="crate">Tax rate: <span id="cFilerRate">0%</span></div>
+          <div class="cnet" id="cFilerNetLabel">Net: <strong id="cFilerNet">—</strong></div>
+        </div>
+        <div class="card compare-card" id="lateCard" style="border-top-color:#ffd166;">
+          <h3>⚠️ Late Filer</h3>
+          <div class="ctax" style="color:var(--gold);" id="cLateTax">Rs. 0</div>
+          <div class="crate">Tax rate: <span id="cLateRate">0%</span></div>
+          <div class="cnet" id="cLateNetLabel">Net: <strong id="cLateNet">—</strong></div>
+        </div>
+        <div class="card compare-card" id="nonCard" style="border-top-color:#c0392b;">
+          <h3>❌ Non-Filer</h3>
+          <div class="ctax" style="color:var(--red);" id="cNonTax">Rs. 0</div>
+          <div class="crate">Tax rate: <span id="cNonRate">0%</span></div>
+          <div class="cnet" id="cNonNetLabel">Net: <strong id="cNonNet">—</strong></div>
+        </div>
+      </div>
+
+      <div class="card save-box" id="saveBox">
+        <strong>You could save: <span id="cSaving">Rs. 0</span></strong>
+        <p>by transacting as an Active Filer instead of a Non-Filer on this amount.</p>
+      </div>
+
+      <h2>Current Rates — Tax Year 2027 (Finance Act 2026)</h2>
+      <div class="grid c2">
+        <div class="card">
+          <h3 style="color:var(--navy);font-size:14px;margin-bottom:8px;">🏠 Property — Sections 236C & 236K</h3>
+          <ul class="doc-list">
+            <li>236C (sale): 2.75% flat for filers</li>
+            <li>236K (purchase): 1.25% flat for filers</li>
+            <li>Late-filer / non-filer figures: not yet published on this calculator</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--navy);font-size:14px;margin-bottom:8px;">🏦 Bank Profit & Cash Withdrawal</h3>
+          <ul class="doc-list">
+            <li>Bank profit (Sec. 151): 15% filer · 30% late/non-filer</li>
+            <li>Cash withdrawal (Sec. 231AB): 0% for filers</li>
+            <li>Cash withdrawal (Sec. 231AB): 0.8% for late/non-filers on the ENTIRE amount, once daily aggregate withdrawal exceeds Rs. 75,000</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-note">Filer rates reflect the Finance Act 2026 (effective 1 July 2026, Tax Year 2027) as reported at time of writing. Property late-filer/non-filer figures are withheld pending final value-banding confirmation. Bank profit non-filer rate shown is the standard tier; a higher tier may apply on large deposits, pending confirmation. This tool is for guidance only and not a substitute for professional advice.</div>
+    </section>
+
+    <!-- ============ PAGE: DOCS & WHY US ============ -->
+    <section class="page" id="docs">
+      <div class="crumb">Get Ready</div>
+      <h1>Documents Required <em>&</em> Why Choose Us</h1>
+      <p class="lead">Gather these once — we handle everything else on IRIS.</p>
+
+      <h2>Documents by Filer Type</h2>
+      <div class="grid c2">
+        <div class="card">
+          <h3 style="color:var(--navy);font-size:15px;margin-bottom:10px;">🧑‍💼 Salaried Individuals</h3>
+          <ul class="doc-list">
+            <li>CNIC copy (valid, not expired)</li>
+            <li>Salary certificate / tax deduction certificate from employer</li>
+            <li>Bank statement (1 July 2025 – 30 June 2026)</li>
+            <li>Details of assets: property, vehicle, investments</li>
+            <li>Utility of any other income (rent, profit on savings)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--navy);font-size:15px;margin-bottom:10px;">🏪 Business / AOP</h3>
+          <ul class="doc-list">
+            <li>CNIC of proprietor / partners</li>
+            <li>Summary of sales, purchases & expenses</li>
+            <li>Business bank statement (full year)</li>
+            <li>Utility bills of business premises</li>
+            <li>Details of business assets & stock</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--navy);font-size:15px;margin-bottom:10px;">💻 Freelancers</h3>
+          <ul class="doc-list">
+            <li>CNIC copy</li>
+            <li>Payoneer / Wise / bank remittance record</li>
+            <li>Platform earning statements (Upwork, Fiverr, etc.)</li>
+            <li>PSEB registration (if any)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--navy);font-size:15px;margin-bottom:10px;">🏠 Property Owners</h3>
+          <ul class="doc-list">
+            <li>CNIC copy</li>
+            <li>Rental agreements & rent receipts</li>
+            <li>Property purchase / sale documents (if transacted)</li>
+            <li>Withholding tax challans (236C / 236K)</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--navy);font-size:15px;margin-bottom:10px;">🌍 Non-Resident Pakistani</h3>
+          <ul class="doc-list">
+            <li>Annual income (worldwide)</li>
+            <li>Total assets held outside Pakistan</li>
+            <li>Foreign remittances sent to Pakistan</li>
+            <li>Annual expenses</li>
+            <li>Assets and liabilities</li>
+            <li>Any income generated within Pakistan (e.g. house rent)</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Why Active Tax Filer?</h2>
+      <div class="grid c3">
+        <div class="card why"><div class="n">01</div><h3>Specialists, Not Generalists</h3><p>We work FBR/IRIS every single day — salaried, business, AOP and freelancer returns are our core work, not a side service.</p></div>
+        <div class="card why"><div class="n">02</div><h3>Transparent Fixed Fees</h3><p>You know the fee before we start. No surprises, no hidden charges after filing.</p></div>
+        <div class="card why"><div class="n">03</div><h3>Refunds Actually Claimed</h3><p>We reconcile every withholding certificate so excess tax deducted comes back to you, not left with FBR.</p></div>
+        <div class="card why"><div class="n">04</div><h3>Fully Remote via WhatsApp</h3><p>Send documents on WhatsApp, approve your draft, done. No office visits required.</p></div>
+        <div class="card why"><div class="n">05</div><h3>Year-Round Support</h3><p>FBR notice after filing? We respond on your behalf. You're covered beyond September.</p></div>
+        <div class="card why"><div class="n">06</div><h3>ATL Guaranteed On Time</h3><p>File with us before the deadline and your name stays on the Active Taxpayers List — saving you double withholding all year.</p></div>
+      </div>
+    </section>
+
+    <!-- ============ PAGE: CONTACT ============ -->
+    <section class="page" id="contact">
+      <div class="crumb">Reach Us</div>
+      <h1>Contact <em>Active Tax Filer</em></h1>
+      <p class="lead">Fastest response on WhatsApp — send your documents and we'll take it from there.</p>
+
+      <div class="grid c2" style="margin-top:22px;">
+        <div class="card">
+          <div class="contact-row">
+            <div class="ic">💬</div>
+            <div class="t"><a href="https://wa.me/923002212473" target="_blank">+92 300 2212473</a><small>WhatsApp — fastest response</small></div>
+          </div>
+          <div class="contact-row">
+            <div class="ic">📞</div>
+            <div class="t"><a href="tel:+923002212473">+92 300 2212473</a><small>Call: Mon–Sat, 10am–8pm</small></div>
+          </div>
+          <div class="contact-row">
+            <div class="ic">✉️</div>
+            <div class="t"><a href="mailto:fahadrehman83@hotmail.com">fahadrehman83@hotmail.com</a><small>Email</small></div>
+          </div>
+          <div class="contact-row">
+            <div class="ic">📍</div>
+            <div class="t">Karachi, Pakistan<small>Serving clients nationwide — fully remote filing</small></div>
+          </div>
+        </div>
+        <div class="card" style="background:var(--gold-light);border-color:#efe2bd;">
+          <h3 style="color:var(--gold);font-size:15px;margin-bottom:10px;">⏰ How It Works</h3>
+          <ul class="doc-list">
+            <li>Message us on WhatsApp with your filer type</li>
+            <li>We confirm the fee & document list</li>
+            <li>Send documents — photos are fine</li>
+            <li>We prepare your return & share a draft</li>
+            <li>You approve → we file on IRIS → you get the acknowledgment</li>
+          </ul>
+          <div style="margin-top:16px;"><a class="btn primary" style="background:#25d366;" href="https://wa.me/923002212473?text=I%20want%20to%20file%20my%20Tax%20Year%202026%20return.%20Visit%3A%20https%3A%2F%2Ffahadrehman1983-spec.github.io%2FActive-filer%2F" target="_blank">Start on WhatsApp →</a></div>
+        </div>
+      </div>
+
+      <div class="footer-note">© 2026 Active Tax Filer, Karachi. Replace placeholder phone/email with your actual contact details before publishing.</div>
+    </section>
+
+    <!-- ============ PAGE: BUSINESS APPS ============ -->
+    <section class="page" id="apps">
+      <div class="crumb">Custom Software</div>
+      <h1>Custom Business Apps — <em>Built For You</em></h1>
+      <p class="lead">Beyond tax filing, we design and build custom applications for small enterprises, superstores and growing businesses — priced for real small-business budgets, not enterprise ones.</p>
+
+      <div class="hero" style="margin-top:22px;">
+        <div class="badge">LIVE DEMO · NO SIGNUP NEEDED</div>
+        <h1 style="font-size:22px;">See a real working app in action</h1>
+        <p class="lead" style="max-width:100%;">Tap through an actual sample application — dashboard, inventory, cashflow and more — before you decide anything.</p>
+        <div class="btns">
+          <a class="btn primary" href="https://tubular-kleicha-83dfe22.netlify.app/" target="_blank" rel="noopener">Open Live Demo →</a>
+          <a class="btn outline" href="https://wa.me/923002212473?text=Hi%2C%20I%27m%20interested%20in%20a%20custom%20business%20app.%20Visit%3A%20https%3A%2F%2Ffahadrehman1983-spec.github.io%2FActive-filer%2F" target="_blank" rel="noopener">Discuss My Requirement</a>
+        </div>
+      </div>
+
+      <h2 style="margin-top:30px;">From Messy Spreadsheets to a Live Dashboard</h2>
+      <p class="lead" style="max-width:100%;">This is the exact transformation our custom data tools deliver — upload your existing Excel chaos, and get back a dashboard that actually runs your business.</p>
+
+      <div class="card" style="margin-top:16px;padding:8px;">
+        <img src="before-after-combined.jpg" alt="Before and after: messy Excel spreadsheets transformed through our upload utility into a live business performance dashboard, saving time and giving full control" style="width:100%;border-radius:10px;display:block;">
+      </div>
+
+      <h2>What We Build</h2>
+      <div class="grid c3">
+        <div class="card svc">
+          <h3>Sales Tax Bookkeeping</h3>
+          <p>Structured, audit-ready sales tax records built around how your business actually operates.</p>
+          <span class="who">For shops & service providers</span>
+        </div>
+        <div class="card svc">
+          <h3>Sale / Purchase — Complete Financial Book</h3>
+          <p>A full sale and purchase ledger acting as your complete financial book, not just a sales log.</p>
+          <span class="who">For retailers & distributors</span>
+        </div>
+        <div class="card svc">
+          <h3>Inventory Management</h3>
+          <p>Real-time stock tracking across single or multiple locations, with low-stock visibility built in.</p>
+          <span class="who">For superstores & wholesalers</span>
+        </div>
+        <div class="card svc">
+          <h3>Cashflow Management</h3>
+          <p>See money in, money out, and what's coming — without waiting for a monthly close.</p>
+          <span class="who">For any growing business</span>
+        </div>
+        <div class="card svc">
+          <h3>Multi-Book, One Single App</h3>
+          <p>Run several business books — different branches, entities, or ventures — inside one application.</p>
+          <span class="who">For multi-branch owners</span>
+        </div>
+        <div class="card svc">
+          <h3>Supply Chain Management</h3>
+          <p>Track goods from supplier to shelf, with visibility at every handoff along the way.</p>
+          <span class="who">For distributors & manufacturers</span>
+        </div>
+      </div>
+      <p class="lead" style="margin-top:14px;">Plus <strong style="color:var(--navy);">any custom application</strong> you need — including builds compliant with USA, UK and other tax jurisdictions.</p>
+
+      <h2>Already Have the Data? Skip Weeks of Manual Work</h2>
+      <div class="card" style="background:var(--teal-light);border-color:#cdeae6;">
+        <h3 style="color:var(--teal);font-size:15.5px;margin-bottom:8px;">📊 Excel → Live Dashboard</h3>
+        <p style="font-size:13.5px;color:var(--muted);line-height:1.6;">Send your Excel sheets and we'll turn them into a live dashboard — not just charts. You get real risk insights, trend analysis, suggestions and pattern detection, done in days instead of the weeks it normally takes.</p>
+        <div style="margin-top:14px;"><a class="btn primary" style="background:#25d366;" href="https://wa.me/923002212473?text=Hi%2C%20I%27d%20like%20to%20turn%20my%20Excel%20data%20into%20a%20dashboard." target="_blank" rel="noopener">Send Your Excel Sheet on WhatsApp</a></div>
+      </div>
+
+      <div class="footer-note">© 2026 Active Tax Filer, Karachi. Custom application development offered alongside our core tax filing and bookkeeping services.</div>
+    </section>
+
+  </main>
+</div>
+
+<div class="contact-fab" id="contactFab">
+  <div class="fab-option">
+    <span class="fab-label">Email</span>
+    <a class="fab-btn mail" href="mailto:fahadrehman83@hotmail.com">✉️</a>
+  </div>
+  <div class="fab-option">
+    <span class="fab-label">Call</span>
+    <a class="fab-btn call" href="tel:+923002212473">📞</a>
+  </div>
+  <div class="fab-option">
+    <span class="fab-label">WhatsApp</span>
+    <a class="fab-btn wa" href="https://wa.me/923002212473?text=I%20want%20to%20file%20my%20tax%20return.%20Visit%3A%20https%3A%2F%2Ffahadrehman1983-spec.github.io%2FActive-filer%2F" target="_blank">💬</a>
+  </div>
+  <button class="fab-main" onclick="document.getElementById('contactFab').classList.toggle('open')">
+    <span class="fab-icon-wa"><svg viewBox="0 0 32 32" width="26" height="26" fill="#fff"><path d="M16.04 3C9.4 3 4 8.4 4 15.04c0 2.36.68 4.56 1.86 6.42L4 29l7.73-2.02a12 12 0 0 0 4.31.78h.01c6.63 0 12.03-5.4 12.03-12.03C28.08 8.4 22.68 3 16.04 3zm0 21.98a9.9 9.9 0 0 1-5.05-1.38l-.36-.21-3.76.98 1-3.66-.24-.38a9.9 9.9 0 0 1-1.53-5.3c0-5.48 4.46-9.94 9.95-9.94 5.48 0 9.94 4.46 9.94 9.95 0 5.48-4.46 9.94-9.95 9.94zm5.46-7.45c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.65-2.05-.17-.3-.02-.46.13-.61.14-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.91-2.2-.24-.58-.49-.5-.67-.5-.17-.01-.37-.01-.57-.01-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.87 1.22 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35z"/></svg></span>
+    <span class="fab-icon-close">×</span>
+  </button>
+</div>
+
+<script>
+  function go(id, btn){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+    window.scrollTo(0,0);
+  }
+
+  function fmt(n){ return 'Rs. '+Math.round(n).toLocaleString('en-PK'); }
+
+  // ---- Multi-year salaried slabs ----
+  function taxTY2024(inc){
+    if(inc<=600000) return 0;
+    if(inc<=1200000) return (inc-600000)*0.025;
+    if(inc<=2400000) return 15000+(inc-1200000)*0.125;
+    if(inc<=3600000) return 165000+(inc-2400000)*0.225;
+    if(inc<=6000000) return 405000+(inc-3600000)*0.275;
+    return 1095000+(inc-6000000)*0.35;
+  }
+  function taxTY2025(inc){
+    if(inc<=600000) return 0;
+    if(inc<=1200000) return (inc-600000)*0.05;
+    if(inc<=2200000) return 30000+(inc-1200000)*0.15;
+    if(inc<=3200000) return 180000+(inc-2200000)*0.25;
+    if(inc<=4100000) return 430000+(inc-3200000)*0.30;
+    return 700000+(inc-4100000)*0.35;
+  }
+  function taxTY2026(inc){
+    if(inc<=600000) return 0;
+    if(inc<=1200000) return (inc-600000)*0.01;
+    if(inc<=2200000) return 6000+(inc-1200000)*0.11;
+    if(inc<=3200000) return 116000+(inc-2200000)*0.23;
+    if(inc<=4100000) return 346000+(inc-3200000)*0.30;
+    return 616000+(inc-4100000)*0.35;
+  }
+  const slabNotes = {
+    '2024':'<strong>TY2024 slabs:</strong> 0% up to Rs. 600K · 2.5% to 1.2M · 12.5% to 2.4M · 22.5% to 3.6M · 27.5% to 6M · 35% above 6M. No surcharge applied in TY2024.',
+    '2025':'<strong>TY2025 slabs:</strong> 0% up to Rs. 600K · 5% to 1.2M · 15% to 2.2M · 25% to 3.2M · 30% to 4.1M · 35% above 4.1M. A 10% surcharge applies on tax payable where taxable income exceeds Rs. 10M.',
+    '2026':'<strong>TY2026 slabs:</strong> 0% up to Rs. 600K · 1% to 1.2M · 11% to 2.2M · 23% to 3.2M · 30% to 4.1M · 35% above 4.1M. A 9% surcharge applies on tax payable where taxable income exceeds Rs. 10M.'
+  };
+
+  function calc(){
+    const year=document.getElementById('tyear').value;
+    const mode=document.getElementById('mode').value;
+    const v=parseFloat(document.getElementById('amt').value)||0;
+    const annual=mode==='m'? v*12 : v;
+
+    let tax=0, surRate=0;
+    if(year==='2024'){ tax=taxTY2024(annual); surRate=0; }
+    else if(year==='2025'){ tax=taxTY2025(annual); surRate=annual>10000000?0.10:0; }
+    else { tax=taxTY2026(annual); surRate=annual>10000000?0.09:0; }
+
+    const sur=tax*surRate;
+    const total=tax+sur;
+
+    document.getElementById('slabNote').innerHTML=slabNotes[year];
+    document.getElementById('rIncome').textContent=fmt(annual);
+    document.getElementById('rTax').textContent=fmt(tax);
+    document.getElementById('rSur').textContent=fmt(sur);
+    document.getElementById('rMonthly').textContent=fmt(total/12);
+    document.getElementById('rTake').textContent=fmt((annual-total)/12);
+    document.getElementById('rEff').textContent=annual>0? (total/annual*100).toFixed(1)+'%' : '0%';
+
+    const waLink=document.getElementById('waLink');
+    if(waLink && annual>0){
+      const msg=encodeURIComponent(`Hi, my estimated annual salary tax for TY${year} is ${fmt(total)} (on income ${fmt(annual)}). Please help me file my return. Visit: https://fahadrehman1983-spec.github.io/Active-filer/`);
+      waLink.href=`https://wa.me/923002212473?text=${msg}`;
+    }
+  }
+  document.getElementById('tyear').addEventListener('change',calc);
+  document.getElementById('mode').addEventListener('change',calc);
+  document.getElementById('amt').addEventListener('input',calc);
+  calc();
+
+  // ---- Filer / Late Filer / Non-Filer calculator (Finance Act 2026 / TY2027) ----
+  // Property (236C/236K): filer rate only — late/non-filer not yet published.
+  // Cash withdrawal (231AB) & Bank profit (151): full three-way comparison, updated rates.
+  function calcCompare(){
+    const type=document.getElementById('ctype').value;
+    const amt=parseFloat(document.getElementById('camt').value)||0;
+    const isProperty = (type==='sale' || type==='purchase');
+
+    document.getElementById('propNotice').style.display = isProperty ? 'block' : 'none';
+    document.getElementById('lateCard').style.display = isProperty ? 'none' : 'block';
+    document.getElementById('nonCard').style.display = isProperty ? 'none' : 'block';
+    document.getElementById('saveBox').style.display = isProperty ? 'none' : 'block';
+    document.getElementById('cardGrid').className = isProperty ? 'grid c1' : 'grid c3';
+
+    let filerRate=0, lateRate=0, nonRate=0, note='', addOn=false, netLabel='Net received';
+    let filerTax=0, lateTax=0, nonTax=0;
+
+    if(type==='sale'){
+      filerRate=2.75; addOn=false; netLabel='Net proceeds';
+      note='Section 236C is deducted from the seller\'s sale proceeds at transfer, at a flat 2.75% for Active Filers. Late-filer/non-filer figures are not yet published.';
+      document.getElementById('camtLabel').textContent='Property sale value (Rs.)';
+      filerTax=amt*filerRate/100;
+    } else if(type==='purchase'){
+      filerRate=1.25; addOn=true; netLabel='Total cost (price + tax)';
+      note='Section 236K is paid by the buyer on top of the purchase price, at a flat 1.25% for Active Filers. Late-filer/non-filer figures are not yet published.';
+      document.getElementById('camtLabel').textContent='Property purchase value (Rs.)';
+      filerTax=amt*filerRate/100;
+    } else if(type==='bankprofit'){
+      filerRate=15; lateRate=30; nonRate=30; addOn=false; netLabel='Net profit credited';
+      note='Section 151 is deducted by the bank from profit credited to your account: 15% for Active Filers, 30% for Late Filers and Non-Filers. A higher tier may apply on large deposits, pending confirmation.';
+      document.getElementById('camtLabel').textContent='Annual bank profit / profit on debt (Rs.)';
+      filerTax=amt*filerRate/100; lateTax=amt*lateRate/100; nonTax=amt*nonRate/100;
+    } else if(type==='cash'){
+      filerRate=0; lateRate=0.8; nonRate=0.8; addOn=false; netLabel='Net after tax';
+      note='Section 231AB applies once aggregate daily cash withdrawal exceeds Rs. 75,000 — the tax is deducted on the ENTIRE withdrawn amount, not just the excess. Active Filers pay 0%; Late Filers and Non-Filers pay 0.8% on the full amount.';
+      document.getElementById('camtLabel').textContent='Daily cash withdrawal amount (Rs.)';
+      const overThreshold = amt > 75000;
+      filerTax=0;
+      lateTax = overThreshold ? amt*lateRate/100 : 0;
+      nonTax = overThreshold ? amt*nonRate/100 : 0;
+    }
+
+    document.getElementById('cFilerRate').textContent=filerRate+'%';
+    document.getElementById('cFilerTax').textContent=fmt(filerTax);
+    const netVal=(base,tax)=> addOn ? fmt(base+tax) : fmt(base-tax);
+    document.getElementById('cFilerNetLabel').innerHTML=netLabel+': <strong id="cFilerNet">'+netVal(amt,filerTax)+'</strong>';
+
+    if(!isProperty){
+      document.getElementById('cLateRate').textContent=lateRate+'%';
+      document.getElementById('cNonRate').textContent=nonRate+'%';
+      document.getElementById('cLateTax').textContent=fmt(lateTax);
+      document.getElementById('cNonTax').textContent=fmt(nonTax);
+      document.getElementById('cLateNetLabel').innerHTML=netLabel+': <strong id="cLateNet">'+netVal(amt,lateTax)+'</strong>';
+      document.getElementById('cNonNetLabel').innerHTML=netLabel+': <strong id="cNonNet">'+netVal(amt,nonTax)+'</strong>';
+      document.getElementById('cSaving').textContent=fmt(Math.abs(nonTax-filerTax));
+    }
+
+    document.getElementById('cNote').innerHTML='<strong>Note:</strong> '+note;
+  }
+  document.getElementById('ctype').addEventListener('change',calcCompare);
+  document.getElementById('camt').addEventListener('input',calcCompare);
+  calcCompare();
+</script>
+</body>
+</html>
